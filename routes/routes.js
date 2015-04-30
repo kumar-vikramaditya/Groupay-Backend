@@ -49,6 +49,15 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/refreshUser', function(req, res) {
+
+        var userEmail= req.body.userEmail;
+        user.refreshUser(userEmail,function(found) {
+            console.log(found);
+            res.json(found);
+        });
+    });
+    
     app.post('/createGroup', function(req, res) {
         console.log("groupName" + req.body.groupMembersRequest);
 
@@ -75,5 +84,15 @@ module.exports = function(app) {
             res.json(found);
         });
     });
+
+     app.post('/getGroupDetails', function(req, res) {
+
+        var groupToken= req.body.groupToken;
+        group.getGroupDetails(groupToken,function(found) {
+            console.log(found);
+            res.json(found);
+        });
+    });
+
 
 }
