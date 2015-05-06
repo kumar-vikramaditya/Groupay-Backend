@@ -38,13 +38,10 @@ module.exports = function(app) {
     });
 
 
-    app.get('/getAllUsers', function(req, res) {
-
-        var email = req.body.email;
-        var password = req.body.password;
+    app.post('/getAllUsers', function(req, res) {
 
         user.getall(function(found) {
-            console.log(found);
+            console.log("all users found"+found);
             res.json(found);
         });
     });
@@ -64,8 +61,10 @@ module.exports = function(app) {
         var groupName = req.body.groupName;
         var groupAdminEmail = req.body.groupAdminEmail;
         var groupMemberRequestEmail= req.body.groupMemberRequestEmail;
+        var groupAdminName=req.body.groupAdminName;
+        var groupMemberRequestName=req.body.groupMemberRequestName;
 
-        group.create(groupName, groupMemberRequestEmail,groupAdminEmail,function(found) {
+        group.create(groupName, groupMemberRequestEmail,groupMemberRequestName,groupAdminEmail,groupAdminName,function(found) {
             console.log(found);
             res.json(found);
         });
@@ -78,8 +77,8 @@ module.exports = function(app) {
         var groupAdminEmail = req.body.groupAdminEmail;
         var userEmail= req.body.userEmail;
         var updateAction=req.body.updateAction;
-
-        group.update(groupName, groupAdminEmail,userEmail,updateAction,function(found) {
+        var userName=req.body.userName;
+        group.update(groupName, groupAdminEmail,userEmail,userName,updateAction,function(found) {
             console.log(found);
             res.json(found);
         });
