@@ -1,5 +1,6 @@
 var user = require('config/users');
 var group = require('config/groups');
+var events = require('config/events');
 
 module.exports = function(app) {
 
@@ -70,6 +71,27 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/createEvent', function(req, res) {
+        console.log("eventName" + req.body.eventName);
+
+        var eventName = req.body.eventName;
+        var eventDescription = req.body.eventDescription;
+        var eventAdminEmail= req.body.eventAdminEmail;
+        var eventAdminName=req.body.eventAdminName;
+        var eventRequestsName=req.body.eventRequestsName;
+        var eventRequests=req.body.eventRequests;
+        var eventMembers=req.body.eventMembers;
+        var groupName=req.body.groupName;
+        var venue=req.body.venue;
+        var eventDate=req.body.eventDate;
+        var eventTime=req.body.eventTime;
+
+        events.create(eventName, eventDescription,eventAdminEmail,eventAdminName,eventRequestsName,eventRequests,eventMembers, groupName, venue,eventDate,eventTime,function(found) {
+            console.log(found);
+            res.json(found);
+        });
+    });
+
     app.post('/updateGroup', function(req, res) {
         console.log("groupName" + req.body.groupName);
 
@@ -84,10 +106,35 @@ module.exports = function(app) {
         });
     });
 
+
+    app.post('/updateEvent', function(req, res) {
+        console.log("eventName" + req.body.eventName);
+
+        var eventName = req.body.eventName;
+        var eventdminEmail = req.body.eventAdminEmail;
+        var userEmail= req.body.userEmail;
+        var updateAction=req.body.updateAction;
+        var userName=req.body.userName;
+        events.update(groupName, groupAdminEmail,userEmail,userName,updateAction,function(found) {
+            console.log(found);
+            res.json(found);
+        });
+    });
+
+
      app.post('/getGroupDetails', function(req, res) {
 
         var groupToken= req.body.groupToken;
         group.getGroupDetails(groupToken,function(found) {
+            console.log(found);
+            res.json(found);
+        });
+    });
+
+      app.post('/getEventDetails', function(req, res) {
+
+        var eventToken= req.body.eventToken;
+        event.getEventDetails(eventToken,function(found) {
             console.log(found);
             res.json(found);
         });
