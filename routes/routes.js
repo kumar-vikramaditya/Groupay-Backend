@@ -115,7 +115,7 @@ module.exports = function(app) {
         var userEmail= req.body.userEmail;
         var updateAction=req.body.updateAction;
         var userName=req.body.userName;
-        events.update(groupName, groupAdminEmail,userEmail,userName,updateAction,function(found) {
+        events.update(eventName, eventdminEmail,userEmail,userName,updateAction,function(found) {
             console.log(found);
             res.json(found);
         });
@@ -134,7 +134,7 @@ module.exports = function(app) {
       app.post('/getEventDetails', function(req, res) {
 
         var eventToken= req.body.eventToken;
-        event.getEventDetails(eventToken,function(found) {
+        events.getEventDetails(eventToken,function(found) {
             console.log(found);
             res.json(found);
         });
